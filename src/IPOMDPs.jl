@@ -26,5 +26,5 @@ export
     initial_state_distribution,
     initial_model_distribution
 
-    include("ipomdps.jl")
+    include("ipomdp.jl")
 end
