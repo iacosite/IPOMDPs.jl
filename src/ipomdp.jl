@@ -40,9 +40,7 @@ end
 """
     state_index(problem::IPOMDP{S}, s::S)
 """
-function state_index(ipomdp::IPOMDP, s::Any)
-    return find(IPOMDPs.states(ipomdp), s)
-end
+function state_index end
 
 """
     agents(ipomdp::IPOMDP{S})
@@ -67,12 +65,7 @@ end
     agent_index(problem::IPOMDP{S}, agent::Agent{S,A,W})
     agent_index(problem::IPOMDP{S}, model::ipomdpModel{S,A,W}, agent::Agent{S,A,W})
 """
-function agent_index(ipomdp::IPOMDP, agent::Agent)
-    return find(IPOMDPs.agents(ipomdp), agent)
-end
-function agent_index(ipomdp::IPOMDP, model::ipomdpModel, agent::Agent)
-    return find(IPOMDPs.states(ipomdp, model), s)
-end
+function agent_index end
 
 """
     actions(ipomdp::IPOMDP{S}, agent::Agent{S,A,W})
@@ -90,9 +83,7 @@ end
 """
     action_index(problem::IPOMDP{S}, agent::Agent{S,A,W}, a::A)
 """
-function action_index(ipomdp::IPOMDP, agent::Agent, a::Any)
-    return find(IPOMDPs.actions(ipomdp, agent), a)
-end
+function action_index end
 
 """
     observations(ipomdp::IPOMDP{S}, agent::Agent{S,A,W})
@@ -110,9 +101,7 @@ end
 """
     observation_index(problem::IPOMDP{S}, agent::Agent{S,A,W}, o::W)
 """
-function observation_index(ipomdp::IPOMDP, agent::Agent, o::Any)
-    return find(IPOMDPs.observations(ipomdp, agent), o)
-end
+function observation_index end
 
 """
     models(ipomdp::IPOMDP{S}, agent::Agent{S,A,W})
@@ -130,9 +119,7 @@ end
 """
     model_index(ipomdp::IPOMDP{S}, agent::Agent{S,A,W}, model::Model{S,A,W})
 """
-function model_index(ipomdp::IPOMDP, agent::Agent, m::Model)
-    return find(IPOMDPs.models(ipomdp, agent), m)
-end
+function model_index end
 
 # Ti
 """
