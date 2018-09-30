@@ -124,13 +124,15 @@ function model_index end
 # Ti
 """
     transition(ipomdp::IPOMDP{S}, model::ipomdpModel{S,A,W}, s::S, a::Vector{A})
-    transition(ipomdp::IPOMDP{S}, model::pomdpModel{S,A,W}, s::S, a::Vector{A})
+    transition(ipomdp::IPOMDP{S}, model::pomdpModel{S,A,W}, s::S, a::Vector{A}) (non implemented)
+			or
+    transition(ipomdp::IPOMDP{S}, model::pomdpModel{S,A,W}, s::S, a::A) (currently implemented)
 """
 function transition end
 
 # Oi
 """
-    observation(ipomdp::IPOMDP{S}, model::ipomdpModel{S,A,W}, a::Vector{A}, sp::S, a::Vector{A})
+    observation(ipomdp::IPOMDP{S}, model::ipomdpModel{S,A,W}, a::Vector{A}, sp::S)
     observation(ipomdp::IPOMDP{S}, model::pomdpModel{S,A,W}, a::Vector{A}, sp::S) (non implemented)
 			or
     observation(ipomdp::IPOMDP{S}, model::pomdpModel{S,A,W}, a::A, sp::S) (currently implemented)
@@ -142,7 +144,6 @@ function observation end
     reward(ipomdp::IPOMDP{S}, model::ipomdpModel{S,A,W}, s::S, a::Vector{A})
     reward(ipomdp::IPOMDP{S}, model::pomdpModel{S,A,W}, s::S, a::Vector{A}) (not implemented)
 			or
-
     reward(ipomdp::IPOMDP{S}, model::pomdpModel{S,A,W}, s::S, a::A) (currently implemented)
 """
 function reward end
