@@ -4,14 +4,14 @@ export
     # Abstract types
     IPOMDP,
     Agent,
-    Model,
-    IntentionalModel,
-    SubintentionalModel,
+    Frame,
+    IntentionalFrame,
+    SubintentionalFrame,
 
     # Standard defined models
-    ipomdpModel,
-    pomdpModel,
-    sModel,
+    ipomdpFrame,
+    pomdpFrame,
+    sFrame,
 
     # Functions
     states,
@@ -24,7 +24,7 @@ export
 
     # Initial distributions
     initial_state_distribution,
-    initial_model_distribution
+    initial_frame_distribution
 
     include("ipomdp.jl")
 end

@@ -7,14 +7,14 @@ abstract type IPOMDP{S} end
 
 abstract type Agent{S,A,W} <: IPOMDP{S} end
 
-abstract type Model{S,A,W} <: Agent{S,A,W} end
+abstract type Frame{S,A,W} <: Agent{S,A,W} end
 
-abstract type IntentionalModel{S,A,W} <: Model{S,A,W} end
-abstract type SubintentionalModel{S,A,W} <: Model{S,A,W} end
+abstract type IntentionalFrame{S,A,W} <: Frame{S,A,W} end
+abstract type SubintentionalFrame{S,A,W} <: Frame{S,A,W} end
 
-abstract type ipomdpModel{S,A,W} <: IntentionalModel{S,A,W} end
-abstract type pomdpModel{S,A,W} <: IntentionalModel{S,A,W} end
-abstract type sModel{S,A,W} <: SubintentionalModel{S,A,W} end
+abstract type ipomdpFrame{S,A,W} <: IntentionalFrame{S,A,W} end
+abstract type pomdpFrame{S,A,W} <: IntentionalFrame{S,A,W} end
+abstract type sFrame{S,A,W} <: SubintentionalFrame{S,A,W} end
 
 #=
  =Framework functions
@@ -44,26 +44,26 @@ function state_index end
 
 """
     agents(ipomdp::IPOMDP{S})
-    agents(ipomdp::IPOMDP{S}, model::ipomdpModel{S,A,W})
+    agents(ipomdp::IPOMDP{S}, frame::ipomdpFrame{S,A,W})
 """
 function agents end
 
 """
     n_agents(problem::IPOMDP{S})
-    n_agents(problem::IPOMDP{S}, model::ipomdpModel{S,A,W})
+    n_agents(problem::IPOMDP{S}, frame::ipomdpFrame{S,A,W})
 """
 # Automatically defined
 function n_agents(problem::IPOMDP)
     return size(agents(problem), 1)
 end
 # Automatically defined
-function n_agents(problem::IPOMDP, model::ipomdpModel)
-    return size(agents(problem, model), 1)
+function n_agents(problem::IPOMDP, frame::ipomdpFrame)
+    return size(agents(problem, frame), 1)
 end
 
 """
     agent_index(problem::IPOMDP{S}, agent::Agent{S,A,W})
-    agent_index(problem::IPOMDP{S}, model::ipomdpModel{S,A,W}, agent::Agent{S,A,W})
+    agent_index(problem::IPOMDP{S}, frame::ipomdpFrame{S,A,W}, agent::Agent{S,A,W})
 """
 function agent_index end
 
@@ -104,61 +104,61 @@ end
 function observation_index end
 
 """
-    models(ipomdp::IPOMDP{S}, agent::Agent{S,A,W})
+    frames(ipomdp::IPOMDP{S}, agent::Agent{S,A,W})
 """
-function models end
+function frames end
 
 """
-    n_models(problem::IPOMDP{S}, agent::Agent{S,A,W})
+    n_frames(problem::IPOMDP{S}, agent::Agent{S,A,W})
 """
 # Automatically defined
-function n_models(problem::IPOMDP, agent::Agent)
-    return size(models(problem, agent), 1)
+function n_frames(problem::IPOMDP, agent::Agent)
+    return size(frames(problem, agent), 1)
 end
 
 """
-    model_index(ipomdp::IPOMDP{S}, agent::Agent{S,A,W}, model::Model{S,A,W})
+    frame_index(ipomdp::IPOMDP{S}, agent::Agent{S,A,W}, frame::Frame{S,A,W})
 """
-function model_index end
+function frame_index end
 
 # Ti
 """
-    transition(ipomdp::IPOMDP{S}, model::ipomdpModel{S,A,W}, s::S, a::Vector{A})
-    transition(ipomdp::IPOMDP{S}, model::pomdpModel{S,A,W}, s::S, a::Vector{A}) (non implemented)
+    transition(ipomdp::IPOMDP{S}, frame::ipomdpFrame{S,A,W}, s::S, a::Vector{A})
+    transition(ipomdp::IPOMDP{S}, frame::pomdpFrame{S,A,W}, s::S, a::Vector{A}) (non implemented)
 			or
-    transition(ipomdp::IPOMDP{S}, model::pomdpModel{S,A,W}, s::S, a::A) (currently implemented)
+    transition(ipomdp::IPOMDP{S}, frame::pomdpFrame{S,A,W}, s::S, a::A) (currently implemented)
 """
 function transition end
 
 # Oi
 """
-    observation(ipomdp::IPOMDP{S}, model::ipomdpModel{S,A,W}, a::Vector{A}, sp::S)
-    observation(ipomdp::IPOMDP{S}, model::pomdpModel{S,A,W}, a::Vector{A}, sp::S) (non implemented)
+    observation(ipomdp::IPOMDP{S}, frame::ipomdpFrame{S,A,W}, a::Vector{A}, sp::S)
+    observation(ipomdp::IPOMDP{S}, frame::pomdpFrame{S,A,W}, a::Vector{A}, sp::S) (non implemented)
 			or
-    observation(ipomdp::IPOMDP{S}, model::pomdpModel{S,A,W}, a::A, sp::S) (currently implemented)
+    observation(ipomdp::IPOMDP{S}, frame::pomdpFrame{S,A,W}, a::A, sp::S) (currently implemented)
 """
 function observation end
 
 # Ri
 """
-    reward(ipomdp::IPOMDP{S}, model::ipomdpModel{S,A,W}, s::S, a::Vector{A})
-    reward(ipomdp::IPOMDP{S}, model::pomdpModel{S,A,W}, s::S, a::Vector{A}) (not implemented)
+    reward(ipomdp::IPOMDP{S}, frame::ipomdpFrame{S,A,W}, s::S, a::Vector{A})
+    reward(ipomdp::IPOMDP{S}, frame::pomdpFrame{S,A,W}, s::S, a::Vector{A}) (not implemented)
 			or
-    reward(ipomdp::IPOMDP{S}, model::pomdpModel{S,A,W}, s::S, a::A) (currently implemented)
+    reward(ipomdp::IPOMDP{S}, frame::pomdpFrame{S,A,W}, s::S, a::A) (currently implemented)
 """
 function reward end
 
 """
-    initial_state_distribution(ipomdp::IPOMDP{S}, model::ipomdpModel{S,A,W})
-    initial_state_distribution(ipomdp::IPOMDP{S}, model::pomdpModel{S,A,W})
+    initial_state_distribution(ipomdp::IPOMDP{S}, frame::ipomdpFrame{S,A,W})
+    initial_state_distribution(ipomdp::IPOMDP{S}, frame::pomdpFrame{S,A,W})
 """
 function initial_state_distribution end
 
 """
-Specifies the initial likleyhood of each model for the given agent
-    initial_model_distribution(ipomdp::IPOMDP{S}, agent::Agent{S,A,W})
+Specifies the initial likleyhood of each frame for the given agent
+    initial_frame_distribution(ipomdp::IPOMDP{S}, agent::Agent{S,A,W})
 """
-function initial_model_distribution end
+function initial_frame_distribution end
 
 """
 Specifies wether the reached state is terminal
