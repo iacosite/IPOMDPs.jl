@@ -23,8 +23,8 @@ export
     rewards,
 
     # Initial distributions
-    initial_state_distribution,
-    initial_frame_distribution
+    initialstate_distribution,
+    initialframe_distribution
 
     include("ipomdp.jl")
 end

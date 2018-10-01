@@ -149,16 +149,16 @@ function observation end
 function reward end
 
 """
-    initial_state_distribution(ipomdp::IPOMDP{S}, frame::ipomdpFrame{S,A,W})
-    initial_state_distribution(ipomdp::IPOMDP{S}, frame::pomdpFrame{S,A,W})
+    initialstate_distribution(ipomdp::IPOMDP{S}, frame::ipomdpFrame{S,A,W})
+    initialstate_distribution(ipomdp::IPOMDP{S}, frame::pomdpFrame{S,A,W})
 """
-function initial_state_distribution end
+function initialstate_distribution end
 
 """
 Specifies the initial likleyhood of each frame for the given agent
-    initial_frame_distribution(ipomdp::IPOMDP{S}, agent::Agent{S,A,W})
+    initialframe_distribution(ipomdp::IPOMDP{S}, agent::Agent{S,A,W})
 """
-function initial_frame_distribution end
+function initialframe_distribution end
 
 """
 Specifies wether the reached state is terminal
