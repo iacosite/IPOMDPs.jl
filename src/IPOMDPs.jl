@@ -15,12 +15,23 @@ export
 
     # Functions
     states,
-    agents,
-    frames,
+    stateindex,
+    n_states,
     actions,
+    actionindex,
+    n_actions,
     observations,
+    observationindex,
+    n_observations,
+    agents,
+    agentindex,
+    n_agents,
+    frames,
+    frameindex,
+    n_frames,
     transition,
-    rewards,
+    observation,
+    reward,
 
     # Initial distributions
     initialstate_distribution,

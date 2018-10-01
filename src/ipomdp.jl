@@ -38,9 +38,9 @@ function n_states(problem::IPOMDP)
 end
 
 """
-    state_index(problem::IPOMDP{S}, s::S)
+    stateindex(problem::IPOMDP{S}, s::S)
 """
-function state_index end
+function stateindex end
 
 """
     agents(ipomdp::IPOMDP{S})
@@ -62,10 +62,10 @@ function n_agents(problem::IPOMDP, frame::ipomdpFrame)
 end
 
 """
-    agent_index(problem::IPOMDP{S}, agent::Agent{S,A,W})
-    agent_index(problem::IPOMDP{S}, frame::ipomdpFrame{S,A,W}, agent::Agent{S,A,W})
+    agentindex(problem::IPOMDP{S}, agent::Agent{S,A,W})
+    agentindex(problem::IPOMDP{S}, frame::ipomdpFrame{S,A,W}, agent::Agent{S,A,W})
 """
-function agent_index end
+function agentindex end
 
 """
     actions(ipomdp::IPOMDP{S}, agent::Agent{S,A,W})
@@ -81,9 +81,9 @@ function n_actions(problem::IPOMDP, agent::Agent)
 end
 
 """
-    action_index(problem::IPOMDP{S}, agent::Agent{S,A,W}, a::A)
+    actionindex(problem::IPOMDP{S}, agent::Agent{S,A,W}, a::A)
 """
-function action_index end
+function actionindex end
 
 """
     observations(ipomdp::IPOMDP{S}, agent::Agent{S,A,W})
@@ -99,9 +99,9 @@ function n_observations(problem::IPOMDP, agent::Agent)
 end
 
 """
-    observation_index(problem::IPOMDP{S}, agent::Agent{S,A,W}, o::W)
+    observationindex(problem::IPOMDP{S}, agent::Agent{S,A,W}, o::W)
 """
-function observation_index end
+function observationindex end
 
 """
     frames(ipomdp::IPOMDP{S}, agent::Agent{S,A,W})
@@ -117,9 +117,9 @@ function n_frames(problem::IPOMDP, agent::Agent)
 end
 
 """
-    frame_index(ipomdp::IPOMDP{S}, agent::Agent{S,A,W}, frame::Frame{S,A,W})
+    frameindex(ipomdp::IPOMDP{S}, agent::Agent{S,A,W}, frame::Frame{S,A,W})
 """
-function frame_index end
+function frameindex end
 
 # Ti
 """
