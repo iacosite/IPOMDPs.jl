@@ -17,6 +17,11 @@ abstract type ipomdpFrame{S,A,W} <: IntentionalFrame{S,A,W} end
 abstract type pomdpFrame{S,A,W} <: IntentionalFrame{S,A,W} end
 abstract type sFrame{S,A,W} <: SubintentionalFrame{S,A,W} end
 
+struct IS{S}
+    state::S
+    models::Vector{Model}
+end
+
 #=
  =Framework functions
  =#

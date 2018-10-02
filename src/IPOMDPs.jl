@@ -12,6 +12,7 @@ export
     Frame,
     IntentionalFrame,
     SubintentionalFrame,
+    IS,
 
     # Standard defined models
     ipomdpFrame,
