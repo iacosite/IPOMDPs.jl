@@ -8,7 +8,8 @@ abstract type IPOMDP{S} end
 abstract type Agent{S,A,W} <: IPOMDP{S} end
 
 abstract type Frame{S,A,W} <: Agent{S,A,W} end
-
+abstract type Model end
+abstract type FrameData end
 abstract type IntentionalFrame{S,A,W} <: Frame{S,A,W} end
 abstract type SubintentionalFrame{S,A,W} <: Frame{S,A,W} end
 

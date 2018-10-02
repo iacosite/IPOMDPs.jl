@@ -1,5 +1,10 @@
 module IPOMDPs
 
+using POMDPs
+using SARSOP
+using BeliefUpdaters
+using POMDPModelTools
+
 export
     # Abstract types
     IPOMDP,
@@ -12,6 +17,10 @@ export
     ipomdpFrame,
     pomdpFrame,
     sFrame,
+    frameData,
+    initial_belief,
+    action,
+    update,
 
     # Functions
     states,
@@ -38,4 +47,6 @@ export
     initialframe_distribution
 
     include("ipomdp.jl")
+    include("pomdpFrame.jl")
+    include("sFrame.jl")
 end
