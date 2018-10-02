@@ -39,7 +39,7 @@ function states end
     n_states(problem::IPOMDP{S})
 """
 # Automatically defined
-function n_states(problem::IPOMDP)
+function n_states(problem::IPOMDP{S}) where {S}
     return size(states(problem), 1)
 end
 
@@ -59,11 +59,11 @@ function agents end
     n_agents(problem::IPOMDP{S}, frame::ipomdpFrame{S,A,W})
 """
 # Automatically defined
-function n_agents(problem::IPOMDP)
+function n_agents(problem::IPOMDP{S}) where {S}
     return size(agents(problem), 1)
 end
 # Automatically defined
-function n_agents(problem::IPOMDP, frame::ipomdpFrame)
+function n_agents(problem::IPOMDP{S}, frame::ipomdpFrame{S,A,W}) where {S,A,W}
     return size(agents(problem, frame), 1)
 end
 
@@ -82,7 +82,7 @@ function actions end
     n_actions(problem::IPOMDP{S}, agent::Agent{S,A,W})
 """
 # Automatically defined
-function n_actions(problem::IPOMDP, agent::Agent)
+function n_actions(problem::IPOMDP{S}, agent::Agent{S,A,W}) where {S,A,W}
     return size(actions(problem, agent), 1)
 end
 
@@ -100,7 +100,7 @@ function observations end
     n_observations(problem::IPOMDP{S}, agent::Agent{S,A,W})
 """
 # Automatically defined
-function n_observations(problem::IPOMDP, agent::Agent)
+function n_observations(problem::IPOMDP{S}, agent::Agent{S,A,W}) where {S,A,W}
     return size(observations(problem, agent), 1)
 end
 
@@ -118,7 +118,7 @@ function frames end
     n_frames(problem::IPOMDP{S}, agent::Agent{S,A,W})
 """
 # Automatically defined
-function n_frames(problem::IPOMDP, agent::Agent)
+function n_frames(problem::IPOMDP{S}, agent::Agent{S,A,W}) where {S,A,W}
     return size(frames(problem, agent), 1)
 end
 
@@ -155,6 +155,7 @@ function observation end
 function reward end
 
 """
+Returns a SparseCat{Float64, S}
     initialstate_distribution(ipomdp::IPOMDP{S}, frame::ipomdpFrame{S,A,W})
     initialstate_distribution(ipomdp::IPOMDP{S}, frame::pomdpFrame{S,A,W})
 """
@@ -162,6 +163,7 @@ function initialstate_distribution end
 
 """
 Specifies the initial likleyhood of each frame for the given agent
+Returns SparseCat{Float64, Frame}
     initialframe_distribution(ipomdp::IPOMDP{S}, agent::Agent{S,A,W})
 """
 function initialframe_distribution end
