@@ -20,6 +20,10 @@ function frameData(ipomdp::IPOMDP{S}, agent::Agent{S,A,W}, frame::sFrame{S,A,W})
     return sFrameData(id, ipomdp, agent, frame, updater)
 end
 
+function frameModel(data::sFrameData{S,A,W}) where {S,A,W}
+    return pomdpModel(data.id, IPOMDPs.initial_belief(data))
+end
+
 function initial_belief(data::sFrameData{S,A,W}) where {S,A,W}
     allObs = IPOMDPs.observations(data.ipomdp, data.agent)
     obs = Vector{W}()

@@ -19,6 +19,7 @@ export
     pomdpFrame,
     sFrame,
     frameData,
+    frameModel,
     initial_belief,
     action,
     update,

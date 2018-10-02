@@ -21,6 +21,10 @@ function frameData(ipomdp::IPOMDP, agent::Agent, frame::pomdpFrame)
     return pomdpFrameData(id, pomdpFrame, e_policy, updater)
 end
 
+function frameModel(data::pomdpFrameData{S,A,W}) where {S,A,W}
+    return pomdpModel(data.id, IPOMDPs.initial_belief(data))
+end
+
 function initial_belief(data::pomdpFrameData)
     dist = POMDPs.initialstate_distribution(data.pomdp)
     belief = BeliefUpdaters.initializeBelief(data.updater, dist)
