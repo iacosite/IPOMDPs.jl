@@ -1,54 +1,32 @@
 module IPOMDPs
 
-using POMDPs
-using SARSOP
-using BeliefUpdaters
-using POMDPModelTools
 
 export
-    # Abstract types
     IPOMDP,
+    Model,
     Agent,
-    Frame,
-    IntentionalFrame,
-    SubintentionalFrame,
     IS,
 
-    # Standard defined models
-    ipomdpFrame,
-    pomdpFrame,
-    sFrame,
-    frameData,
-    frameModel,
-    initial_belief,
+    agent,
+    actions_agent,
+    observations_agent,
+
+    model_observation,
+    tau,
+    actionP,
     action,
-    update,
 
-    # Functions
     states,
-    stateindex,
-    n_states,
     actions,
-    actionindex,
-    n_actions,
     observations,
-    observationindex,
-    n_observations,
-    agents,
-    agentindex,
-    n_agents,
-    frames,
-    frameindex,
-    n_frames,
-    transition,
     observation,
+    transition,
     reward,
+    discount,
 
-    # Initial distributions
+    emulated_frames,
     initialstate_distribution,
     initialframe_distribution
-
+    
     include("ipomdp.jl")
-    include("pomdpFrame.jl")
-    include("sFrame.jl")
 end

@@ -3,175 +3,169 @@
 #=
  = Type Hierarchy
  =#
-abstract type IPOMDP{S} end
-
-abstract type Agent{S,A,W} <: IPOMDP{S} end
-
-abstract type Frame{S,A,W} <: Agent{S,A,W} end
-abstract type Model end
-abstract type FrameData end
-abstract type IntentionalFrame{S,A,W} <: Frame{S,A,W} end
-abstract type SubintentionalFrame{S,A,W} <: Frame{S,A,W} end
-
-abstract type ipomdpFrame{S,A,W} <: IntentionalFrame{S,A,W} end
-abstract type pomdpFrame{S,A,W} <: IntentionalFrame{S,A,W} end
-abstract type sFrame{S,A,W} <: SubintentionalFrame{S,A,W} end
+abstract type IPOMDP{S,A,W} end
+abstract type Model{A,W} end
+abstract type Agent{S,A,W} end
 
 struct IS{S}
     state::S
     models::Vector{Model}
 end
 
-#=
- =Framework functions
- =#
+#
+#   Problem structure definitions
+#
+
+# Problem
 """
-    discount(ipomdp::IPOMDP{S})
+    Te cartesian product among the actions of the agents emulated by the IPOMDP
+    actions_problem(problem::IPOMDP)
+Return
+    Dict{Agent, Any}
 """
-function discount end
+function actions_problem end
+
+# Agent
 
 """
-    states{S}(ipomdp::IPOMDP{S})
+    The agent the specified frame refers to
+    agent(frame::X)
+    X <: Any
+Return:
+    Agent{S,A,W}
+"""
+function agent end
+
+
+"""
+    All the possible actions an agent can do. This must be a superset of all the actions all the models of an agent can perform
+    actions_agent(agent::Agent{S,A,W})
+Return:
+    Vector{A}
+"""
+function actions_agent end
+
+"""
+    All the possible observations an agent can receive. This must be a superset of all the observations all the models of an agent can receive
+    observations_agent(agent::Agent{S,A,W})
+Return:
+    Vector{W}
+"""
+function observations_agent end
+"""
+    All the frames an agent can have.
+    emulated_frames(frame::IPOMDP)
+Return:
+    Vector{Any}
+"""
+function emulated_frames end
+
+# Model
+"""
+    Describes the way the frame Y receives observations from the environment as specified by the emulating frame X
+    model_observation(frame::IPOMDP, frame::Y, s::S, a::Dict{Agent, Any}, o::W)
+    Y <: Any
+Return:
+    SparseCat{W, Float64}
+"""
+function model_observation end
+
+"""
+    Creates the model starting from a defined frame
+    Model(frame::X)
+    X <: Any
+Return:
+    Model{A,W}
+"""
+function Model end
+
+"""
+    Updates the history of the model and returns the new model
+    tau(model::M, action::A, observation::W) 
+    M <: Model{A,W}
+Return:
+    Model{A,W}
+"""
+function tau end
+
+"""
+    Describes the next optimal action
+    action(model::M)
+    M <: Model{A,W}
+Return:
+    A
+"""
+function action end
+
+"""
+    The probability that a model takes a specific action
+    actionP(model::Model{A,W},  a::A)
+Return:
+    Float64
+"""
+function actionP(model::Model{A,W}, a::A) where {A,W}
+    # Run 100 trials and calculate probability
+    N = 100
+    n_a = 0
+    for i = 1:N
+	    if action(model) == a
+	        n_a = n_a +1
+	    end
+    end
+
+    return n_a/N
+end
+
+# IPOMDP definition
+"""
+    states(ipomdp::IPOMDP{S})
+Return: 
+    Vector{S}
 """
 function states end
 
 """
-    n_states(problem::IPOMDP{S})
-"""
-# Automatically defined
-function n_states(problem::IPOMDP{S}) where {S}
-    return size(states(problem), 1)
-end
-
-"""
-    stateindex(problem::IPOMDP{S}, s::S)
-"""
-function stateindex end
-
-"""
-    agents(ipomdp::IPOMDP{S})
-    agents(ipomdp::IPOMDP{S}, frame::ipomdpFrame{S,A,W})
-"""
-function agents end
-
-"""
-    n_agents(problem::IPOMDP{S})
-    n_agents(problem::IPOMDP{S}, frame::ipomdpFrame{S,A,W})
-"""
-# Automatically defined
-function n_agents(problem::IPOMDP{S}) where {S}
-    return size(agents(problem), 1)
-end
-# Automatically defined
-function n_agents(problem::IPOMDP{S}, frame::ipomdpFrame{S,A,W}) where {S,A,W}
-    return size(agents(problem, frame), 1)
-end
-
-"""
-    agentindex(problem::IPOMDP{S}, agent::Agent{S,A,W})
-    agentindex(problem::IPOMDP{S}, frame::ipomdpFrame{S,A,W}, agent::Agent{S,A,W})
-"""
-function agentindex end
-
-"""
-    actions(ipomdp::IPOMDP{S}, agent::Agent{S,A,W})
-"""
-function actions end
-
-"""
-    n_actions(problem::IPOMDP{S}, agent::Agent{S,A,W})
-"""
-# Automatically defined
-function n_actions(problem::IPOMDP{S}, agent::Agent{S,A,W}) where {S,A,W}
-    return size(actions(problem, agent), 1)
-end
-
-"""
-    actionindex(problem::IPOMDP{S}, agent::Agent{S,A,W}, a::A)
-"""
-function actionindex end
-
-"""
-    observations(ipomdp::IPOMDP{S}, agent::Agent{S,A,W})
-"""
-function observations end
-
-"""
-    n_observations(problem::IPOMDP{S}, agent::Agent{S,A,W})
-"""
-# Automatically defined
-function n_observations(problem::IPOMDP{S}, agent::Agent{S,A,W}) where {S,A,W}
-    return size(observations(problem, agent), 1)
-end
-
-"""
-    observationindex(problem::IPOMDP{S}, agent::Agent{S,A,W}, o::W)
-"""
-function observationindex end
-
-"""
-    frames(ipomdp::IPOMDP{S}, agent::Agent{S,A,W})
-"""
-function frames end
-
-"""
-    n_frames(problem::IPOMDP{S}, agent::Agent{S,A,W})
-"""
-# Automatically defined
-function n_frames(problem::IPOMDP{S}, agent::Agent{S,A,W}) where {S,A,W}
-    return size(frames(problem, agent), 1)
-end
-
-"""
-    frameindex(ipomdp::IPOMDP{S}, agent::Agent{S,A,W}, frame::Frame{S,A,W})
-"""
-function frameindex end
-
-# Ti
-"""
-    transition(ipomdp::IPOMDP{S}, frame::ipomdpFrame{S,A,W}, s::S, a::Vector{A})
-    transition(ipomdp::IPOMDP{S}, frame::pomdpFrame{S,A,W}, s::S, a::Vector{A}) (non implemented)
-			or
-    transition(ipomdp::IPOMDP{S}, frame::pomdpFrame{S,A,W}, s::S, a::A) (currently implemented)
-"""
-function transition end
-
-# Oi
-"""
-    observation(ipomdp::IPOMDP{S}, frame::ipomdpFrame{S,A,W}, a::Vector{A}, sp::S)
-    observation(ipomdp::IPOMDP{S}, frame::pomdpFrame{S,A,W}, a::Vector{A}, sp::S) (non implemented)
-			or
-    observation(ipomdp::IPOMDP{S}, frame::pomdpFrame{S,A,W}, a::A, sp::S) (currently implemented)
+    observation(ipomdp::IPOMDP{S}, state::S, actions::Dict{Agent, Any})
+Return:
+    SparseCat{W, Float64}
 """
 function observation end
 
-# Ri
 """
-    reward(ipomdp::IPOMDP{S}, frame::ipomdpFrame{S,A,W}, s::S, a::Vector{A})
-    reward(ipomdp::IPOMDP{S}, frame::pomdpFrame{S,A,W}, s::S, a::Vector{A}) (not implemented)
-			or
-    reward(ipomdp::IPOMDP{S}, frame::pomdpFrame{S,A,W}, s::S, a::A) (currently implemented)
+    transition(ipomdp::IPOMDP{S}, state::S, actions::Dict{Agent, Any})
+Return:
+    SparseCat{S, Float64}
+"""
+function transition end
+
+"""
+    reward(ipomdp::IPOMDP{S}, is::IS, actions::Dict{Agent, Any})
+Return:
+    Float64
 """
 function reward end
 
 """
-Returns a SparseCat{Float64, S}
-    initialstate_distribution(ipomdp::IPOMDP{S}, frame::ipomdpFrame{S,A,W})
-    initialstate_distribution(ipomdp::IPOMDP{S}, frame::pomdpFrame{S,A,W})
+    discount(ipomdp::IPOMDP{S})
+Return:
+    Float64
+"""
+function discount end
+
+
+# Belief related
+"""
+    The initial belief distribution over the physical states in the world
+Return:
+    SparseCat{S, Float64}
 """
 function initialstate_distribution end
 
 """
-Specifies the initial likleyhood of each frame for the given agent
-Returns SparseCat{Float64, Frame}
-    initialframe_distribution(ipomdp::IPOMDP{S}, agent::Agent{S,A,W})
+    The initial belief distribution over the frames emulated by the IPOMDP agent
+Return:
+    SparseCat{Any, Float64}
 """
 function initialframe_distribution end
-
-"""
-Specifies wether the reached state is terminal
-	isterminal(ipomdp::IPOMDP{S}, s::S)
-"""
-function isterminal end
 
 
