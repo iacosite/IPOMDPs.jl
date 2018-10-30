@@ -9,7 +9,9 @@ export
 
     agent,
     actions_agent,
+    actionindex_agent,
     observations_agent,
+    obsindex_agent,
 
     model_observation,
     tau,
@@ -17,12 +19,14 @@ export
     action,
 
     states,
+    stateindex,
     actions,
     observations,
     observation,
     transition,
     reward,
     discount,
+    isterminal,
 
     emulated_frames,
     initialstate_distribution,

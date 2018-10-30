@@ -46,12 +46,29 @@ Return:
 function actions_agent end
 
 """
+    Index identifying the action
+    actionindex_agent(agent::Agent{S,A,W}, action::A)
+Return:
+    Int64
+"""
+function actionindex_agent end
+
+"""
     All the possible observations an agent can receive. This must be a superset of all the observations all the models of an agent can receive
     observations_agent(agent::Agent{S,A,W})
 Return:
     Vector{W}
 """
 function observations_agent end
+
+"""
+    Index identifying the observation
+    obsindex_agent(agent::Agent{S,A,W}, obs::W)
+Return:
+    Int64
+"""
+function obsindex_agent end
+
 """
     All the frames an agent can have.
     emulated_frames(frame::IPOMDP)
@@ -125,6 +142,14 @@ Return:
 function states end
 
 """
+    Index identifying the state
+    stateindex(ipomdp::IPOMDP{S}, state::S)
+Return:
+    Int64
+"""
+function stateindex end
+
+"""
     observation(ipomdp::IPOMDP{S}, state::S, actions::Dict{Agent, Any})
 Return:
     SparseCat{W, Float64}
@@ -152,10 +177,21 @@ Return:
 """
 function discount end
 
+"""
+    Indicate if the reached state is terminal or not
+    isertminal(ipomdp::IPOMDP{S}, state::S)
+Return:
+    Bool
+"""
+function isterminal(ipomdp::IPOMDP{S}, s::S) where {S}
+    return false
+end
+
 
 # Belief related
 """
     The initial belief distribution over the physical states in the world
+    initialstate_distribution(ipomdp::IPOMDP{S})
 Return:
     SparseCat{S, Float64}
 """
@@ -163,6 +199,7 @@ function initialstate_distribution end
 
 """
     The initial belief distribution over the frames emulated by the IPOMDP agent
+    initialframe_distribution(ipomdp::IPOMDP{S})
 Return:
     SparseCat{Any, Float64}
 """
