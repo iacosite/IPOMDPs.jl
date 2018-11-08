@@ -20,7 +20,7 @@ end
 """
     Te cartesian product among the actions of the agents emulated by the IPOMDP
     actions_problem(problem::IPOMDP)
-Return
+Return:
     Dict{Agent, Any}
 """
 function actions_problem end
