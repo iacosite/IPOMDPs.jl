@@ -16,14 +16,7 @@ end
 #   Problem structure definitions
 #
 
-# Problem
-"""
-    Te cartesian product among the actions of the agents emulated by the IPOMDP
-    actions_problem(problem::IPOMDP)
-Return:
-    Dict{Agent, Any}
-"""
-function actions_problem end
+
 
 # Agent
 
@@ -135,6 +128,14 @@ end
 
 # IPOMDP definition
 """
+    The cartesian product among the actions of the agents emulated by the IPOMDP
+    actions(problem::IPOMDP)
+Return:
+    Dict{Agent, Any}
+"""#TODO: make the function
+function actions end
+
+"""
     states(ipomdp::IPOMDP{S})
 Return: 
     Vector{S}
@@ -205,4 +206,12 @@ Return:
 """
 function initialframe_distribution end
 
+
+function update end
+
+function initialize_belief end
+
+function updater end
+
+function solve end
 

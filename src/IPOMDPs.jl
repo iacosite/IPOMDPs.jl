@@ -30,7 +30,12 @@ export
 
     emulated_frames,
     initialstate_distribution,
-    initialframe_distribution
+    initialframe_distribution,
+    
+    update,
+    initialize_belief,
+    updater,
+    solve
     
     include("ipomdp.jl")
 end
